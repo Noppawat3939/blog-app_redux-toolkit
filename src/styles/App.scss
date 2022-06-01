@@ -1,0 +1,26 @@
+@import '../styles/Global.scss';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    background-color: $pri-bg;
+    height: 100vh;
+
+    .hero {
+        background: $purple-bg;
+        padding: 3em 0;
+
+        h1 {
+            color: white;
+            font-size: $fs-header;
+            font-weight: $fw-header;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+    }
+}

@@ -1,0 +1,46 @@
+@import './Global.scss';
+
+.postList {
+    max-width: 40%;
+    margin: 1em auto;
+    color: $sec-font;
+
+    h2 {
+        color: $pri-font;
+        font-size: $fs-title;
+        font-weight: $fw-title;
+        letter-spacing: 1.5px;
+    }
+
+    article {
+        border: 1px solid lightgrey;
+        padding: 20px 40px;
+        margin: 15px 0;
+        background: $sec-bg;
+
+        h3 {
+            font-size: $fs-title;
+            font-weight: $fw-title;
+            color: #444444;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: $purple-bg;
+            letter-spacing: 2px;
+            font-size: 1.15em;
+        }
+
+        .contentBottom {
+            display: flex;
+            justify-content: flex-start;
+            column-gap: 10px;
+            align-items: center;
+            font-size: .9em;
+
+            span:nth-of-type(2) {
+                color: gray;
+            }
+        }
+    }
+}

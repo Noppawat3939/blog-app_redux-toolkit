@@ -1,0 +1,26 @@
+@import './Global.scss';
+
+.reaction-btns {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+    border-radius: 5px;
+    overflow: hidden;
+
+    button {
+        border-radius: 2px;
+        width: 100%;
+        font-size: 1.1em;
+        font-weight: 500;
+        padding: 5px 8px;
+        transition: .3s ease;
+        color: $sec-font;
+        background: $purple-soft-bg;
+
+        &:hover {
+            color: white;
+            background: $purple-light-bg;
+        }
+    }
+}
