@@ -1,7 +1,7 @@
 @import './Global.scss';
 
 .postList {
-    max-width: 40%;
+    max-width: 600px;
     margin: 1em auto;
     color: $sec-font;
 
@@ -29,6 +29,9 @@
             color: $purple-bg;
             letter-spacing: 2px;
             font-size: 1.15em;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         .contentBottom {
@@ -40,6 +43,15 @@
 
             span:nth-of-type(2) {
                 color: gray;
+            }
+
+            a {
+                color: inherit;
+                font-weight: 500;
+
+                &:hover {
+                    color: $purple-bg;
+                }
             }
         }
     }
