@@ -1,34 +1,43 @@
-import React from "react";
-import { selectAllPosts } from "../features/post/postSlice";
+import React, { useEffect } from "react";
+import {
+  selectAllPosts,
+  getPostsError,
+  getPostsStatus,
+  fetchPosts,
+} from "../features/post/postSlice";
 import "../styles/PostList.scss";
 import { useAppSelector } from "../hooks/Hook";
-import PostAuthor from "./PostAuthor";
-import TimeAgo from "./TimeAgo";
-import ReactionButtons from "./ReactionButtons";
+import { useDispatch } from "react-redux";
+import PostsExcept from "./PostsExcept";
 
 function PostList() {
+  const dispatch = useDispatch();
   const posts = useAppSelector(selectAllPosts);
+  const postsStatus = useAppSelector(getPostsStatus);
+  const error = useAppSelector(getPostsError);
 
-  const orderdPosts = posts
-    .slice()
-    .sort((a, b) => b.date.localeCompare(a.date));
+  useEffect(() => {
+    if (postsStatus === "idle") {
+      dispatch(fetchPosts());
+    }
+  }, [postsStatus, dispatch]);
+
+  let content;
+  if (postsStatus === "loading") {
+    content = "loading...";
+  } else if (postsStatus === "succeeded") {
+    const OrderPosts = posts
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date));
+    content = OrderPosts.map((post) => <PostsExcept key={post.id} {...post} />);
+  } else if (postsStatus === "failed") {
+    content = { error };
+  }
 
   return (
     <section className="postList">
       <h2>Posts</h2>
-      {orderdPosts.map((post) => {
-        return (
-          <article key={post.id}>
-            <h3>{post.title}</h3>
-            <p>{post.content}</p>
-            <div className="contentBottom">
-              <PostAuthor userID={post.userID} />
-              <TimeAgo timestamp={post.date} />
-            </div>
-            <ReactionButtons post={post} />
-          </article>
-        );
-      })}
+      {content}
     </section>
   );
 }

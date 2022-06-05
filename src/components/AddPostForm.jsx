@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/AddPostForm.scss";
-import { addPost } from "../features/post/postSlice";
+import { addNewPost } from "../features/post/postSlice";
 import { useAppSelector } from "../hooks/Hook";
 import { selectAllUsers } from "../features/users/usersSlice";
 import { useDispatch } from "react-redux";
@@ -12,15 +12,25 @@ function AddPostForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [userID, setUserID] = useState("");
+  const [addRequesStatus, setAddRequesStatus] = useState("idle");
 
-  const canSave = [title, content, userID].every(Boolean);
+  const canSave =
+    [title, content, userID].every(Boolean) && addRequesStatus === "idle";
 
-  const handlePost = (e) => {
-    e.preventDefault();
-    if (canSave) {
-      dispatch(addPost(title, content, userID));
-      setTitle("");
-      setContent("");
+  const handlePost = () => {
+    try {
+      setAddRequesStatus("pending");
+      if (canSave) {
+        dispatch(addNewPost({ title, body: content, userID })).unwrap();
+
+        setTitle("");
+        setContent("");
+        setUserID("");
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setAddRequesStatus("idle");
     }
   };
 
